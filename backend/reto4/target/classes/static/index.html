@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reto 4</title>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Demo</title>
+  <meta name="viewport" content="width=device-width"/>
+  <base href="/"/>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+  <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Font awesome-->
+
+  <script src="https://kit.fontawesome.com/f233c04d27.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="index-css.css">
+
+  <!-- Google Font -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <!-- Métodos -->
+
+  <script type="text/javascript" src="MetodosGet.js"></script>
+  <script type="text/javascript" src="MetodosPost.js"></script>
+  <script type="text/javascript" src="MetodosDelete.js"></script>
+  <script type="text/javascript" src="MetodosPut.js"></script>
+  <script type="text/javascript" src="MetodoGetID.js"></script>
+
+</head>
+<body>
+
+<div class="container unauthenticated">
+  <h1 class="text-center text-white p-3 bg-primary mt-3 rounded">Hola ¿Cómo estas?</h1>
+
+  <p class="text-center lead">Para entrar a la aplicación haz clic en el ícono</p>
+
+  <div class="text-center">
+    <a href="/oauth2/authorization/github" class="text-dark rounded-circle" aria-label="GitHub">
+      <i class="fab fa-github fa-10x"></i>
+    </a>
+  </div>
+</div>
+<div class="container authenticated" style="display:none">
+
+  <p class="text-center mt-2">¡Bienvenido<b><span id="user"></span></b>!</p>
+
+  <h1 class="text-center text-white mt-3 p-3 bg-primary">Creación de registros</h1>
+
+  <!-- Menú / nav-pills -->
+
+  <ul class="nav nav-pills nav-fill mb-3 justify-content-center" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+         aria-controls="pills-home" aria-selected="true">
+        <i class="fas fa-tasks"></i> Categorías</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+         aria-controls="pills-profile" aria-selected="false">
+        <i class="fas fa-shopping-bag"></i> Órtesis</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+         aria-controls="pills-contact" aria-selected="false">
+        <i class="far fa-user"></i> Clientes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-messages-tab" data-toggle="pill" href="#pills-messages" role="tab"
+         aria-controls="pills-messages" aria-selected="false">
+        <i class="fas fa-sms"></i> Mensajes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-reservations-tab" data-toggle="pill" href="#pills-reservations" role="tab"
+         aria-controls="pills-reservations" aria-selected="false">
+        <i class="fas fa-calendar-day"></i> Reservas</a>
+    </li>
+  </ul>
+
+  <!-- Formulario de categorías -->
+
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+      <div class="contenedor-formularios p-3">
+        <div class="raised-blocks">
+          <form>
+            <div class="wrapper">
+              <div class="typing-demo">
+                Creación de categorías
+              </div>
+            </div>
+            <hr>
+            <div class="form-group">
+              <label>id</label>
+              <input class="form-control shadow-none" type="text" placeholder="id" id="idCategory">
+            </div>
+            <div class="form-group">
+              <label>name</label>
+              <input class="form-control shadow-none" type="text" required placeholder="cat1" id="nameCategory">
+            </div>
+            <div class="form-group">
+              <label>description</label>
+              <input class="form-control shadow-none" type="text" required placeholder="test category"
+                     id="descriptionCategory">
+            </div>
+            <button class="btn btn-block btn-outline-success" onclick="registroTablaCategory()">Enviar</button>
+            <button class="btn btn-block btn-outline-info" onclick="actualizarTablaCategory()">Actualizar</button>
+            <button class="btn btn-block btn-outline-primary" onclick="traerTablaCategory()">Cargar registros</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de ortesis -->
+
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <div class="contenedor-formularios p-3">
+        <form>
+          <div class="wrapper">
+            <div class="typing-demo">
+              Creación de órtesis
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label>id</label>
+            <input class="form-control shadow-none" type="text" placeholder="id" id="idOrte">
+          </div>
+          <div class="form-group">
+            <label>brand</label>
+            <input class="form-control shadow-none" type="text" required placeholder="OrtoAAA" id="brandOrte">
+          </div>
+          <div class="form-group">
+            <label>year</label>
+            <input class="form-control shadow-none" type="number" required placeholder="2020" id="yearOrte">
+          </div>
+          <div class="form-group">
+            <label>category</label>
+            <input class="form-control shadow-none" type="number" required placeholder="1" id="categoryOrte">
+          </div>
+          <div class="form-group">
+            <label>name</label>
+            <input class="form-control shadow-none" type="text" required placeholder="muletas" id="nameOrte">
+          </div>
+          <div class="form-group">
+            <label>description</label>
+            <input class="form-control shadow-none" type="text" required placeholder="muletas" id="descriptionOrte">
+          </div>
+          <button class="btn btn-block btn-outline-success" onclick="registroTablaOrtesis()">Enviar</button>
+          <button class="btn btn-block btn-outline-info" onclick="actualizarTablaOrtesis()">Actualizar</button>
+          <button class="btn btn-block btn-outline-primary" onclick="traerTablaOrtesis()">Cargar registros</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Formulario de clientes -->
+
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+      <div class="contenedor-formularios p-3">
+        <form>
+          <div class="wrapper">
+            <div class="typing-demo">
+              Creación de clientes
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label>id</label>
+            <input class="form-control shadow-none" type="text" placeholder="idClient" id="idClient">
+          </div>
+          <div class="form-group">
+            <label>email</label>
+            <input class="form-control shadow-none" type="email" required placeholder="agustin@gmail.com" id="emailClient">
+          </div>
+          <div class="form-group">
+            <label>password</label>
+            <input class="form-control shadow-none" type="text" required placeholder="agustin123" id="passwordClient">
+          </div>
+          <div class="form-group">
+            <label>name</label>
+            <input class="form-control shadow-none" type="text" required placeholder="Agustin Parra" id="nameClient">
+          </div>
+          <div class="form-group">
+            <label>age</label>
+            <input class="form-control shadow-none" type="number" required placeholder="18" id="ageClient">
+          </div>
+          <button class="btn btn-block btn-outline-success" onclick="registroTablaClientes()">Enviar</button>
+          <button class="btn btn-block btn-outline-info" onclick="actualizarTablaClient()">Actualizar</button>
+          <button class="btn btn-block btn-outline-primary" onclick="traerTablaClientes()">Cargar registros</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Formulario de mensajes -->
+
+    <div class="tab-pane fade" id="pills-messages" role="tabpanel" aria-labelledby="pills-messages-tab">
+      <div class="contenedor-formularios p-3">
+        <form class="formularios">
+          <div class="wrapper">
+            <div class="typing-demo">
+              Creación de mensajes
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label>id</label>
+            <input class="form-control shadow-none" type="text" placeholder="idMessage" id="idMessage">
+          </div>
+          <div class="form-group">
+            <label>messageText</label>
+            <input class="form-control shadow-none" type="text" required placeholder="me gusta" id="messageText">
+          </div>
+          <div class="form-group">
+            <label>client</label>
+            <input class="form-control shadow-none" type="text" required placeholder="idClient: 1" id="clientID">
+          </div>
+          <div class="form-group">
+            <label>ortopedic</label>
+            <input class="form-control shadow-none" type="text" required placeholder="id: 1" id="ortopedicID">
+          </div>
+          <button class="btn btn-block btn-outline-success" onclick="registroTablaMensajes()">Enviar</button>
+          <button class="btn btn-block btn-outline-info" onclick="actualizarTablaMessages()">Actualizar</button>
+          <button class="btn btn-block btn-outline-primary" onclick="traerTablaMensajes()">Cargar registros</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Formulario de reservas -->
+
+    <div class="tab-pane fade" id="pills-reservations" role="tabpanel" aria-labelledby="pills-reservations-tab">
+      <div class="contenedor-formularios p-3">
+        <form>
+          <div class="wrapper">
+            <div class="typing-demo">
+              Creación de reservas
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label>idReservation</label>
+            <input class="form-control shadow-none" type="text" placeholder="id" id="idReservation">
+          </div>
+          <div class="form-group">
+            <label>startDate</label>
+            <input class="form-control shadow-none" type="datetime" required placeholder="2020-12-20" id="startDate">
+          </div>
+          <div class="form-group">
+            <label>devolutionDate</label>
+            <input class="form-control shadow-none" type="datetime" required placeholder="2020-12-20" id="devolutionDate">
+          </div>
+          <div class="form-group">
+            <label>status</label>
+            <input class="form-control shadow-none" type="text" disabled placeholder="created" id="statusReservas">
+          </div>
+          <div class="form-group">
+            <label>ortopedic</label>
+            <input class="form-control shadow-none" type="text" required placeholder="id" id="ortopedicReservas">
+          </div>
+          <div class="form-group">
+            <label>client</label>
+            <input class="form-control shadow-none" type="text" required placeholder="idClient: 1" id="clientReservas">
+          </div>
+          <div class="form-group">
+            <label>score</label>
+            <input class="form-control shadow-none" type="text" disabled placeholder="null" id="scoreReservas">
+          </div>
+          <button class="btn btn-block btn-outline-success" onclick="registroTablaReservas()">Enviar</button>
+          <button class="btn btn-block btn-outline-info" onclick="actualizarTablaReservas()">Actualizar</button>
+          <button class="btn btn-block btn-outline-primary" onclick="traerTablaReservas()">Cargar registros</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tablas -->
+
+  <section>
+    <div class="table-responsive p-3 mt-3" id="tablaCategory"></div>
+    <div class="table-responsive p-3 mt-3" id="tablaOrtopedic"></div>
+    <div class="table-responsive p-3 mt-3" id="tablaClient"></div>
+    <div class="table-responsive p-3 mt-3" id="tablaMensajes"></div>
+    <div class="table-responsive p-3 mt-3" id="tablaReservas"></div>
+  </section>
+
+  <a id="back-to-top" href="#" class="btn btn-outline-primary border-0 btn-xl back-to-top" role="button" title="Volver arriba"><i class="fas fa-chevron-up"></i></a>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1 "crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- Datatables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
+
+</body>
+
+<script type="text/javascript">
+    $.get("/user", function (data) {
+      $("#user").html(data.name);
+      $(".unauthenticated").hide()
+      $(".authenticated").show()
+    });
+</script>
+
+</html>
